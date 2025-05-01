@@ -170,7 +170,7 @@ export function CoinButton({
       <Button 
         onClick={handleClick}
         disabled={isLoading || !!simulationError || !contractParams}
-        className={`w-full bg-[#1453EE] hover:bg-[#1453EE]/90 text-white`}
+        className={`w-full bg-accentPrimary hover:bg-accentPrimary/90 text-white`}
       >
         {isLoading ? (
           <>

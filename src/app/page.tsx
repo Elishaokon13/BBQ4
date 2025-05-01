@@ -137,14 +137,14 @@ function App() {
                       <div className="flex items-center gap-2">
                         <code className="text-xs bg-slate-100 p-2 rounded flex-1 overflow-auto">{txHash}</code>
                         <div className="flex gap-1">
-                          <Button variant="ghost" size="icon" onClick={() => copyToClipboard(txHash)} className="text-[#1453EE]">
+                          <Button variant="ghost" size="icon" onClick={() => copyToClipboard(txHash)} className="text-accentPrimary">
                             <Copy className="h-4 w-4" />
                           </Button>
                           <Button 
                             variant="ghost" 
                             size="icon" 
                             onClick={() => window.open(getEtherscanLink(txHash), '_blank')}
-                            className="text-[#1453EE]"
+                            className="text-accentPrimary"
                           >
                             <ExternalLink className="h-4 w-4" />
                           </Button>
@@ -155,7 +155,7 @@ function App() {
                   <CardFooter>
                     <Button
                       variant="outline"
-                      className="w-full text-[#1453EE] border-[#1453EE] hover:bg-[#1453EE] hover:text-white"
+                      className="w-full text-accentPrimary border-accentPrimary hover:bg-accentPrimary hover:text-white"
                       onClick={() => {
                         setCoinParams(null);
                         setTxHash(null);
