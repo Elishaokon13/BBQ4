@@ -98,13 +98,16 @@ User requested a review of their codebase to ensure code quality, maintainabilit
 - [ ] Implement Confetti & Toast animations.
 - [ ] Enhance Wallet Display.
 - [ ] Final Responsive Testing.
+- [x] Persist coinParams and txHash across sign-in.
 
 # Executor's Feedback or Assistance Requests
 - Completed review of configuration files; no assistance needed.
 - Completed fix for fetch error: swapped PROJECT_URL for dynamic request origin and normalized URL protocol in constants.
 - Please run the development server and test POST /api/generate-coin to verify the SSL fetch issue is resolved.
 - Completed update of use case references across codebase; please review UI text, API routes, and README to confirm all instances now refer to ideas instead of jokes or bangers.
-- Completed Task 1: Reconfigured Tailwind theme with the new light palette and typography. Please review the colors and fonts in the app to confirm before I proceed to update global styles (Task 2).
+- Completed Task 1: Reconfigured Tailwind theme with the new light palette and typography.
+- Completed persistence fix: coin details now persist across sign-in.
+- Please test: login flow and confirm that after signing in, your generated coin details and transaction info are retained and displayed correctly.
 
 # Lessons
 - None yet. 

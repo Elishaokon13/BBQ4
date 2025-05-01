@@ -1,7 +1,8 @@
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Button } from "@/components/ui/button";
-import { Coins, Wallet, Copy } from "lucide-react";
+import { Wallet, Copy } from "lucide-react";
 import { toast } from "sonner";
+import { Logo } from "./Logo";
 
 const formatAddress = (address: string | undefined) => {
   if (!address) return "";
@@ -21,9 +22,9 @@ export const Header = () => {
   return (
     <div className="flex items-center justify-between mb-8">
       <div className="flex items-center gap-3">
-        <Coins className="h-8 w-8 text-[#1453EE]" />
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-[#1453EE] to-[#1453EE]/80 bg-clip-text text-transparent">
-          Coin Your Bangers
+        <Logo className="h-8 w-8 text-accentPrimary" />
+        <h1 className="text-2xl font-heading text-textPrimary">
+          CoinSpark
         </h1>
       </div>
       

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { JokeInput } from "./IdeaInput";
+import { IdeaInput } from "./IdeaInput";
 import { CoinDetails } from "./CoinDetails";
 import { CoinButton } from "./CoinButton";
 import { CreateCoinArgs } from "@/types";
@@ -14,13 +14,13 @@ export function CoinCreationFlow({ onSuccess }: CoinCreationFlowProps) {
   const [coinParams, setCoinParams] = useState<CreateCoinArgs | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleJokeGenerated = (params: CreateCoinArgs) => {
+  const handleIdeaGenerated = (params: CreateCoinArgs) => {
     setCoinParams(params);
     setError(null);
   };
 
-  const handleError = (errorMessage: string) => {
-    setError(errorMessage);
+  const handleError = (error: Error) => {
+    setError(error.message);
   };
 
   const handleTxHash = (hash: string) => {
@@ -29,7 +29,7 @@ export function CoinCreationFlow({ onSuccess }: CoinCreationFlowProps) {
 
   return (
     <div className="space-y-6">
-      <JokeInput onJokeGenerated={handleJokeGenerated} />
+      <IdeaInput onIdeaGenerated={handleIdeaGenerated} />
 
       {error && (
         <Alert variant="destructive" className="mb-6 slide-in-from-top animate-in">
@@ -43,9 +43,12 @@ export function CoinCreationFlow({ onSuccess }: CoinCreationFlowProps) {
         <div className="space-y-8">
           <CoinDetails coinParams={coinParams} />
           <CoinButton
-            coinParams={coinParams}
+            name={coinParams.name}
+            symbol={coinParams.symbol}
+            uri={coinParams.uri}
+            initialPurchaseWei={coinParams.initialPurchaseWei}
             onError={handleError}
-            onTxHash={handleTxHash}
+            onSuccess={handleTxHash}
           />
         </div>
       )}

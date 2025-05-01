@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Coins, CheckCircle, AlertCircle, ExternalLink, Copy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -12,6 +12,7 @@ import { IdeaInput } from "@/components/IdeaInput";
 import { useAccount } from "wagmi";
 import { CreateCoinArgs } from "@/types";
 import { CoinButton } from "@/components/CoinButton";
+import { Logo } from "@/components/Logo";
 import Image from 'next/image';
 
 const emptyCoinArgs: CreateCoinArgs = {
@@ -30,9 +31,24 @@ function App() {
   const [apiError, setApiError] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
 
+  // Load persisted data when user connects
+  useEffect(() => {
+    if (accountStatus === 'connected') {
+      const stored = localStorage.getItem('coinParams');
+      if (stored) {
+        try { setCoinParams(JSON.parse(stored)); } catch {}
+      }
+      const hash = localStorage.getItem('txHash');
+      if (hash) {
+        setTxHash(hash);
+      }
+    }
+  }, [accountStatus]);
+
   const handleIdeaGenerated = (params: CreateCoinArgs) => {
     setCoinParams(params);
     setApiError(null);
+    try { localStorage.setItem('coinParams', JSON.stringify(params)); } catch {}
   };
 
   const handleError = (error: Error) => {
@@ -42,6 +58,7 @@ function App() {
 
   const handleTxHash = (hash: string) => {
     setTxHash(hash);
+    try { localStorage.setItem('txHash', hash); } catch {}
   };
 
   const copyToClipboard = (text: string) => {
@@ -62,12 +79,12 @@ function App() {
         className="object-cover -z-10"
         priority
       />
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-full sm:max-w-md md:max-w-2xl lg:max-w-4xl">
         <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <Coins className="h-8 w-8 text-[#1453EE]" />
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-[#1453EE] to-[#1453EE]/80 bg-clip-text text-transparent">
-              Coin Your Idea
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full sm:w-auto gap-2 sm:gap-3">
+            <Logo className="h-8 w-8 text-accentPrimary" />
+            <h1 className="text-2xl sm:text-3xl md:text-xl lg:text-4xl font-heading text-accentPrimary">
+              CoinSpark
             </h1>
           </div>
           <WalletConnect />
@@ -81,13 +98,15 @@ function App() {
           </Alert>
         )}
 
-        <div className="space-y-6">
+        <div className="space-y-6 w-full">
           {accountStatus === "connected" ? (
             <>
-              <IdeaInput onIdeaGenerated={handleIdeaGenerated} />
+              <div className="w-full">
+                <IdeaInput onIdeaGenerated={handleIdeaGenerated} />
+              </div>
 
               {coinParams && (
-                <>
+                <div className="space-y-4 w-full">
                   <CoinDetails coinParams={coinParams} />
                   <CoinButton
                     name={coinParams.name}
@@ -96,8 +115,9 @@ function App() {
                     initialPurchaseWei={coinParams.initialPurchaseWei}
                     onSuccess={handleTxHash}
                     onError={handleError}
+                    className="w-full"
                   />
-                </>
+                </div>
               )}
 
               {txHash && (
@@ -133,12 +153,14 @@ function App() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button 
+                    <Button
                       variant="outline"
                       className="w-full text-[#1453EE] border-[#1453EE] hover:bg-[#1453EE] hover:text-white"
                       onClick={() => {
                         setCoinParams(null);
                         setTxHash(null);
+                        try { localStorage.removeItem('coinParams'); } catch {}
+                        try { localStorage.removeItem('txHash'); } catch {}
                       }}
                     >
                       Create Another Coin
@@ -149,9 +171,9 @@ function App() {
             </>
           ) : (
             <div className="py-16 flex flex-col items-center justify-center">
-              <Coins className="h-16 w-16 text-[#1453EE] mb-4" />
-              <h2 className="text-2xl font-bold text-center mb-2 text-[#1453EE]">Coin your idea!</h2>
-              <p className="text-center text-[#1453EE]/80 max-w-md mb-6">
+              <Logo className="h-16 w-16 text-accentPrimary mb-4" />
+              <h2 className="text-2xl font-bold text-center mb-2 text-accentPrimary font-heading">CoinSpark</h2>
+              <p className="text-center text-accentPrimary/80 max-w-md mb-6">
                 Never let an idea go to waste. Coin it! 
                 <br />
                 Connect your wallet to get started.
