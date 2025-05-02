@@ -43,8 +43,9 @@ The judges suggested that each "coin a post" should have its own unique link/emb
     - Success: Each coin post generates a standalone route and embed URL that renders only that post.
 13. Integrate Gen-AI styling for coin posts.
     - Success: Use a Gen-AI model (e.g., OpenAI) to generate custom CSS styling (fonts, colors, backgrounds) and store the metadata.
-14. Update timeline UI to render embedded posts with generated styling and embed controls.
+14. Update timeline UI to render embed and copy controls for coin posts.
     - Success: Timeline cards apply dynamic styling and provide a button to copy/embed the post.
+    - Success: Apply generated custom styling to timeline posts.
 
 # Project Status Board
 
@@ -87,7 +88,7 @@ The judges suggested that each "coin a post" should have its own unique link/emb
   - [ ] Implement API route for standalone coin post pages
   - [ ] Integrate Gen-AI styling service (Task 13)
   - [ ] Persist and retrieve styling metadata
-  - [ ] Update frontend to apply and embed custom styling (Task 14)
+  - [x] Update frontend to apply and embed custom styling (Task 14.1)
 - [ ] Final review and documentation
 
 # Executor's Feedback or Assistance Requests
@@ -100,6 +101,7 @@ The judges suggested that each "coin a post" should have its own unique link/emb
 - Completed Task 7: business logic and data layer migrated. Please confirm to proceed with Task 8: Configure environment variables.
 - Completed Task 10.1: Updated WalletConnect to use Farcaster signIn and fixed error messages. Please test the sign-in flow.
 - Completed Task 10.2: Added `sdk.actions.ready()` before `signIn` and success toast in `WalletConnect`. Please test that sign-in now works and report any errors.
+- Completed Task 14.1: Added link and embed copy buttons to the My Coins timeline cards. Please review the embed functionality and confirm before proceeding with styling integration.
 - Completed core migration tasks. Ready to design the embed and styling pipeline per judge feedback.
 
 # Lessons

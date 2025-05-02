@@ -193,7 +193,26 @@ export default function Page() {
                     <Card key={coin.id} className="border">
                       <CardHeader><CardTitle>{coin.name} ({coin.symbol})</CardTitle></CardHeader>
                       <CardContent>{coin.description}</CardContent>
-                      <CardFooter>
+                      <CardFooter className="flex justify-between">
+                        <div className="flex space-x-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyToClipboard(`${window.location.origin}/coins/${coin.id}`)}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              const embedCode = `<iframe src="${window.location.origin}/coins/${coin.id}" width="400" height="500" style="border:none;"></iframe>`;
+                              copyToClipboard(embedCode);
+                            }}
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </div>
                         <Button variant="ghost" size="sm" onClick={() => copyToClipboard(coin.metadataUrl)}>
                           <Copy className="h-4 w-4" />
                         </Button>
