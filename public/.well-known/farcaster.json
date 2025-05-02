@@ -1,0 +1,12 @@
+{
+    "frame": {
+      "version": "1",
+      "name": "CoinSpark",
+      "iconUrl": "https://coinspark.vercel.app/logo.png",
+      "homeUrl": "https://coinspark.vercel.app/framesV2/",
+      "imageUrl": "https://coinspark.vercel.app/framesV2/opengraph-image",
+      "buttonTitle": "🚩 Start",
+      "splashImageUrl": "https://coinspark.vercel.app/logo.png",
+      "splashBackgroundColor": "#f5f0ec"
+    }
+  }
