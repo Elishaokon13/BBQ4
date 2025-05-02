@@ -1,156 +1,87 @@
-# Coin Your Idea
-
-A playful onchain app that allows users to coin their ideas, powered by Base Smart Wallet and Zora SDK.
-
-## Overview
-
-Coin Your Idea is a playful application that demonstrates the power of blockchains by allowing users to:
-- Input any idea
-- Generate a coin name and metadata using OpenAI API
-- Generate a unique Coin through Zora SDK
-- Mint the coin as an NFT using Zora's protocol
-- View and share their idea coins
-
-## Technologies Used
-
-- [**Base Smart Wallet**](https://docs.base.org/identity/smart-wallet/quickstart): For seamless onchain identity management
-- [**Zora SDK**](https://docs.zora.co/coins): For coining content
-- [**Wagmi**](https://wagmi.sh/): For building the onchain app
-- **OpenAI API**: For generating coin params from ideas
-- **TypeScript**: For type-safe development
-
-## Key Components
-
-### CoinButton Component
-The `CoinButton` component is a reusable UI element that handles:
-- User input for ideas
-- Coin generation process
-- Smart wallet connection
-- Coining content
-- Transaction status display
-
-### Page Component
-The main page (`page.tsx`) provides:
-- A clean, intuitive interface for idea input
-- Visual feedback during coin generation
-- Display of generated coin details
-- Integration with the Smart Wallet for authentication
-- Connection to Zora's coining protocol
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-3. Set up environment variables:
-- You can use the `.env.example` to know how the structure of your `.env` should look like
-- Copy .env.example, name it `.env` and set up your variables
-
-   ```
-   ENV=local or prod
-   NEXT_PUBLIC_URL=your_deployment_url (http://localhost:3000 for local development)
-   OPENAI_API_KEY=your_openai_api_key
-   NEXT_TELEMETRY_DISABLED=1
-   ```
-4. Run the development server:
-   ```bash
-   pnpm run dev
-   ```
-
-## How It Works
-
-1. User enters an idea
-2. The application uses OpenAI to generate coin parameters (name and symbol)
-3. A unique coin ID is generated
-4. Coin metadata is stored and associated with the ID
-5. The coin is deployed using Zora SDK
-
-## Environment Configuration
-
-The application supports both local and production environments:
-- Local: Uses hardcoded image URLs and localhost endpoints
-- Production: Uses the deployed API endpoints and dynamic image generation
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
 # CoinSpark
 
-A playful onchain app that allows users to transform their ideas into digital coins, powered by Base Smart Wallet and Zora SDK.
+A sleek, modern on-chain platform that lets you mint coins from your ideas in seconds.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Usage](#usage)
 
 ## Overview
 
-CoinSpark is a creative application that demonstrates the power of blockchains by allowing users to:
-- Input any idea
-- Generate a coin name and metadata using OpenAI API
-- Generate a unique Coin through Zora SDK
-- Mint the coin as an NFT using Zora's protocol
-- View and share their idea coins
+CoinSpark empowers creators by transforming ideas into unique on-chain coins. Leveraging AI and blockchain technology, users input any idea, generate coin parameters via OpenAI, deploy a smart contract with Zora SDK, mint an NFT, and share their creation—all in a polished, responsive interface.
+
+## Key Features
+
+- **Idea to Coin**: Enter your idea and instantly generate a coin name and symbol using GPT-powered AI.
+- **Seamless Minting**: Deploy and mint your coin as an NFT using the Zora SDK and Base Smart Wallet.
+- **Interactive Gallery**: Browse and horizontally scroll through recently minted coins.
+- **Responsive UI**: Glass-like inputs, micro-interactions, animated backgrounds, and mobile-first design.
+- **State Persistence**: Automatically save and restore your coin details across sessions.
+- **Wallet Integration**: Connect with Coinbase Wallet, display ENS names, and copy addresses with one click.
+- **Celebratory Animations**: Confetti effects and dynamic 3D coin previews on success.
+
+## Architecture
+
+```
+[User] -> Next.js Frontend -> /api/generate-coin -> OpenAI -> Coin Metadata API -> Zora SDK -> Blockchain
+                                                  \                                  /
+                                                   -> /api/coin-metadata             /
+                                                       /api/generateImage           /
+```
 
 ## Technologies Used
 
-- [**Base Smart Wallet**](https://docs.base.org/identity/smart-wallet/quickstart): For seamless onchain identity management
-- [**Zora SDK**](https://docs.zora.co/coins): For coining content
-- [**Wagmi**](https://wagmi.sh/): For building the onchain app
-- **OpenAI API**: For generating coin params from ideas
-- **TypeScript**: For type-safe development
-
-## Key Components
-
-### CoinButton Component
-The `CoinButton` component is a reusable UI element that handles:
-- User input for ideas
-- Coin generation process
-- Smart wallet connection
-- Coining content
-- Transaction status display
-
-### Page Component
-The main page (`page.tsx`) provides:
-- A clean, intuitive interface for idea input
-- Visual feedback during coin generation
-- Display of generated coin details
-- Integration with the Smart Wallet for authentication
-- Connection to Zora's coining protocol
+- **Next.js**: React framework for SSR and API routes
+- **React**: UI library with hooks and context
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **OpenAI API**: GPT-4O for coin parameter generation
+- **Zora SDK**: Smart contract interactions for coining content
+- **Base Smart Wallet**: On-chain wallet integration
+- **Wagmi**: Ethereum React hooks
+- **Sonner**: Toast notifications
 
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies:
+   ```bash
+   git clone https://github.com/your-org/coinspark.git
+   cd coinspark
+   ```
+2. Install dependencies
    ```bash
    pnpm install
    ```
-3. Set up environment variables:
-- You can use the `.env.example` to know how the structure of your `.env` should look like
-- Copy .env.example, name it `.env` and set up your variables
-
+3. Copy the example environment file and configure
+   ```bash
+   cp .env.example .env
    ```
-   ENV=local or prod
-   NEXT_PUBLIC_URL=your_deployment_url (http://localhost:3000 for local development)
-   OPENAI_API_KEY=your_openai_api_key
-   NEXT_TELEMETRY_DISABLED=1
-   ```
-4. Run the development server:
+4. Set your environment variables in `.env` (see below)
+5. Start the development server
    ```bash
    pnpm run dev
    ```
 
-## How It Works
+## Environment Variables
 
-1. User enters an idea
-2. CoinSpark uses OpenAI to generate coin parameters (name and symbol)
-3. A unique coin ID is generated
-4. Coin metadata is stored and associated with the ID
-5. The coin is deployed using Zora SDK
+| Key                   | Description                                     | Example                  |
+|-----------------------|-------------------------------------------------|--------------------------|
+| `ENV`                 | Environment (`local` or `prod`)                 | `local`                  |
+| `NEXT_PUBLIC_URL`     | Public URL for API routes                       | `http://localhost:3000`  |
+| `OPENAI_API_KEY`      | Your OpenAI API key                             | `sk-...`                 |
+| `NEXT_TELEMETRY_DISABLED` | Disable Next.js telemetry                    | `1`                      |
 
-## Environment Configuration
+## Usage
 
-CoinSpark supports both local and production environments:
-- Local: Uses hardcoded image URLs and localhost endpoints
-- Production: Uses the deployed API endpoints and dynamic image generation
-
-## Contributing
-
-Feel free to submit issues and enhancement requests to help make CoinSpark even better!
+1. Open http://localhost:3000 in your browser.
+2. Connect your wallet via the Sign In button.
+3. Type or paste your idea into the input field.
+4. Click **Coin It!** to generate coin parameters.
+5. Review details, then **Deploy it!** to mint your coin.
+6. View your minted NFT in the gallery and share the link.
