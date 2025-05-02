@@ -28,12 +28,39 @@ CoinSpark empowers creators by transforming ideas into unique on-chain coins. Le
 
 ## Architecture
 
+### Flow Diagram
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant FE as Frontend (Next.js)
+    participant AG as /api/generate-coin
+    participant OA as OpenAI API
+    participant CM as /api/coin-metadata
+    participant GI as /api/generateImage
+    participant ZS as Zora SDK
+    participant BC as Blockchain
+
+    U->>FE: Input idea
+    FE->>AG: POST idea
+    AG->>OA: Request coin params
+    OA-->>AG: Return name & symbol
+    AG-->>FE: Respond with coinParams
+    FE->>ZS: Deploy & mint coin NFT
+    ZS->>BC: Record transaction
+    FE->>CM: POST metadata
+    CM-->>FE: Confirm storage
+    FE->>GI: GET generated image
+    GI-->>FE: Return image
 ```
-[User] -> Next.js Frontend -> /api/generate-coin -> OpenAI -> Coin Metadata API -> Zora SDK -> Blockchain
-                                                  \                                  /
-                                                   -> /api/coin-metadata             /
-                                                       /api/generateImage           /
-```
+
+**Component Descriptions**:
+- **Frontend (Next.js)**: Renders the UI, handles user interactions and wallet connections.
+- **/api/generate-coin**: API route that orchestrates calls to the OpenAI API, returning coin parameters.
+- **OpenAI API**: Generates a coin name and symbol from the user-provided idea.
+- **/api/coin-metadata**: Stores and retrieves metadata for minted coins (EIP-7572 standard).
+- **/api/generateImage**: Edge function generating dynamic OG images for coins.
+- **Zora SDK**: Smart contract abstraction for deploying and minting coin NFTs.
+- **Blockchain**: The underlying on-chain network where coins and transactions are recorded.
 
 ## Technologies Used
 
