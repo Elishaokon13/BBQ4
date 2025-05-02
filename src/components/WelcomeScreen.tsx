@@ -8,7 +8,7 @@ export function WelcomeScreen() {
   return (
     <div className="py-16 flex flex-col items-center justify-center">
       <Coins className="h-16 w-16 text-accentPrimary mb-4" />
-      <h2 className="text-2xl font-bold text-center mb-2 text-accentPrimary">Coin your bangers!</h2>
+      <h2 className="text-2xl font-bold text-center mb-2 text-accentPrimary">CoinSpark!</h2>
       <p className="text-center text-accentPrimary/80 max-w-md mb-6">
         Never let a banger go to waste. Coin it! 
         <br />

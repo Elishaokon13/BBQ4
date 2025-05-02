@@ -5,7 +5,7 @@ import { coinbaseWallet } from "wagmi/connectors";
 import { toHex } from "viem";
 
 export const cbWalletConnector = coinbaseWallet({
-  appName: "Coin Your Bangers",
+  appName: "CoinSpark",
   preference: {
     keysUrl: "https://keys-dev.coinbase.com/connect",
     options: "smartWalletOnly",
