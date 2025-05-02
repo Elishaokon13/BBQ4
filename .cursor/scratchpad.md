@@ -46,6 +46,7 @@ The judges suggested that each "coin a post" should have its own unique link/emb
 14. Update timeline UI to render embed and copy controls for coin posts.
     - Success: Timeline cards apply dynamic styling and provide a button to copy/embed the post.
     - Success: Apply generated custom styling to timeline posts.
+    - Success: Restyled `CoinDetails` component with gradient outline, padding, and updated card header/content look
 
 # Project Status Board
 
@@ -102,6 +103,7 @@ The judges suggested that each "coin a post" should have its own unique link/emb
 - Completed Task 10.1: Updated WalletConnect to use Farcaster signIn and fixed error messages. Please test the sign-in flow.
 - Completed Task 10.2: Added `sdk.actions.ready()` before `signIn` and success toast in `WalletConnect`. Please test that sign-in now works and report any errors.
 - Completed Task 14.1: Added link and embed copy buttons to the My Coins timeline cards. Please review the embed functionality and confirm before proceeding with styling integration.
+- Completed Task 14.2.1: Restyled `CoinDetails` card for a more polished look. Let me know if you'd like further tweaks or if I should move on to integrating Gen-AI styling metadata.
 - Completed core migration tasks. Ready to design the embed and styling pipeline per judge feedback.
 
 # Lessons
