@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { CreateCoinArgs } from "@/types";
+import { useAccount } from 'wagmi';
 
 const MAX_IDEA_LENGTH = 400;
 
@@ -14,6 +15,7 @@ interface IdeaInputProps {
 export function IdeaInput({ onIdeaGenerated }: IdeaInputProps) {
   const [idea, setIdea] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const { address: accountAddress } = useAccount();
 
   const handleIdeaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -34,12 +36,13 @@ export function IdeaInput({ onIdeaGenerated }: IdeaInputProps) {
     setLoading(true);
     
     try {
+      if (!accountAddress) throw new Error('Connect wallet to generate coins');
       const response = await fetch('/api/generate-coin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ idea: ideaText }),
+        body: JSON.stringify({ idea: ideaText, owner: accountAddress }),
       });
       
       if (!response.ok) {

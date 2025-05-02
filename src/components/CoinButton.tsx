@@ -5,12 +5,14 @@ import {
   useSimulateContract,
   useAccount,
 } from "wagmi";
+import { baseSepolia } from 'wagmi/chains';
 import { createCoinCall } from "@zoralabs/coins-sdk";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, CheckCircle, AlertCircle, Coins } from "lucide-react";
 import { toast } from "sonner";
 
+// Extend contract parameters to include chainId
 type ContractParams = {
   address: Address;
   abi: Abi;
@@ -70,12 +72,12 @@ export function CoinButton({
         });
         
         // Extract only the parameters we need
-        const newContractParams = {
+        const newContractParams: ContractParams = {
           address: params.address,
           abi: params.abi,
           functionName: params.functionName,
           args: params.args,
-          value: params.value
+          value: params.value,
         };
         
         console.log("Setting new contract params:", newContractParams);
@@ -103,6 +105,7 @@ export function CoinButton({
     abi: contractParams?.abi,
     functionName: contractParams?.functionName,
     args: contractParams?.args,
+    chainId: baseSepolia.id as typeof baseSepolia.id,
     query: {
       enabled: !!contractParams,
     },
@@ -115,7 +118,7 @@ export function CoinButton({
     console.log('Simulation Error:', simulationError);
   }, [contractParams, simulation, simulationError]);
 
-  // Create the coin
+  // Prepare write function
   const { writeContractAsync } = useWriteContract();
 
   const handleClick = async () => {
@@ -127,10 +130,22 @@ export function CoinButton({
     try {
       setIsLoading(true);
       setStatus('pending');
-      const hash = await writeContractAsync(contractParams);
+      // Provide chainId explicitly to avoid connector.getChainId() error
+      const hash = await writeContractAsync({
+        ...contractParams,
+        chainId: baseSepolia.id,
+      });
       setStatus('success');
       onSuccess?.(hash);
-    } catch (error) {
+    } catch (error: any) {
+      // Handle user rejection separately
+      const isUserRejected = error?.message?.includes('User rejected');
+      if (isUserRejected) {
+        // User cancelled the transaction
+        setStatus('idle');
+        toast('Transaction cancelled by user');
+        return;
+      }
       setStatus('error');
       const message = error instanceof Error 
         ? error.message 

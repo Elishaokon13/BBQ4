@@ -50,6 +50,13 @@ User requested a review of their codebase to ensure code quality, maintainabilit
     - Success: Wallet UI component improved.
 20. Final Responsive Testing: ensure layout works across devices and themes.
     - Success: UI responsive and accessible.
+15. Integrate MongoDB:
+    - Setup `lib/mongodb.ts` for DB connection.
+16. Create `Coin` model in MongoDB:
+    - Fields: `id`, `name`, `symbol`, `description`, `txHash`, `metadataUri`, `ownerAddress`, `createdAt`.
+17. Implement `/api/generate-coin` to save new coin in DB.
+18. Implement `/api/my-coins` endpoint to fetch coins by `ownerAddress`.
+19. Update frontend `My Coins` tab to fetch from `/api/my-coins` instead of localStorage.
 
 # Project Status Board
 - [x] Explore project structure and identify technologies.
@@ -99,6 +106,11 @@ User requested a review of their codebase to ensure code quality, maintainabilit
 - [ ] Enhance Wallet Display.
 - [ ] Final Responsive Testing.
 - [x] Persist coinParams and txHash across sign-in.
+- [ ] Integrate MongoDB with Next.js API.
+- [ ] Define `Coin` schema and collections.
+- [ ] Update `/api/generate-coin` to save coins to DB.
+- [ ] Create `/api/my-coins` endpoint.
+- [ ] Refactor frontend to use new DB endpoint.
 
 # Executor's Feedback or Assistance Requests
 - Completed review of configuration files; no assistance needed.
@@ -108,6 +120,7 @@ User requested a review of their codebase to ensure code quality, maintainabilit
 - Completed Task 1: Reconfigured Tailwind theme with the new light palette and typography.
 - Completed persistence fix: coin details now persist across sign-in.
 - Please test: login flow and confirm that after signing in, your generated coin details and transaction info are retained and displayed correctly.
+- Generated MongoDB connection utility in `lib/mongodb.ts`. Please confirm the environment variable `MONGODB_URI` is set.
 
 # Lessons
 - None yet. 

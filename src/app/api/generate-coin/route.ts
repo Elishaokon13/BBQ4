@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import crypto from 'crypto';
+import clientPromise from '@/lib/mongodb';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // Server-side environment variable
@@ -8,10 +9,9 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const { idea } = await request.json();
-    
-    if (!idea) {
-      return NextResponse.json({ error: 'Idea is required' }, { status: 400 });
+    const { idea, owner } = await request.json();
+    if (!idea || !owner) {
+      return NextResponse.json({ error: 'Idea and owner address required' }, { status: 400 });
     }
     
     const result = await openai.chat.completions.create({
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: `Generate parameters for a cryptocurrency coin based on the following idea. Return JSON in this format: { "name": "short name (max 3 words)", "symbol": "ticker symbol (max 5 letters)" }`
+          content: `Generate parameters for a cryptocurrency coin based on the following idea.\nReturn JSON in this format:\n{\n  "name": "short name (max 3 words)",\n  "symbol": "ticker symbol (max 5 letters)"\n}`
         },
         { role: "user", content: idea }
       ]
@@ -61,6 +61,19 @@ export async function POST(request: NextRequest) {
         symbol: parsedContent.symbol,
         description: idea,
       }),
+    });
+    
+    // Insert coin record into MongoDB
+    const client = await clientPromise;
+    const db = client.db();
+    await db.collection('coins').insertOne({
+      id: uniqueId,
+      name: parsedContent.name,
+      symbol: parsedContent.symbol,
+      description: idea,
+      metadataUrl,
+      ownerAddress: owner,
+      createdAt: new Date()
     });
     
     return NextResponse.json({
