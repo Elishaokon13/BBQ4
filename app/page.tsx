@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle, AlertCircle, ExternalLink, Copy, Plus } from "lucide-react";
+import { CheckCircle, AlertCircle, ExternalLink, Copy, Plus, Check } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
 import { Button } from "./components/ui/button";
@@ -137,13 +137,14 @@ export default function Page() {
           <div className="flex-shrink-0 flex items-center gap-2">
             <WalletConnect />
             {!frameAdded && (
-              <Button variant="ghost" size="sm" onClick={handleAddFrame} className="text-accentPrimary">
+              <Button variant="ghost" size="icon" onClick={handleAddFrame} className="text-accentPrimary">
                 <Plus className="h-4 w-4" />
-                Save Frame
               </Button>
             )}
             {frameAdded && (
-              <span className="text-green-600 text-sm">Frame Added</span>
+              <span className="text-green-600">
+                <Check className="h-4 w-4" />
+              </span>
             )}
           </div>
         </div>

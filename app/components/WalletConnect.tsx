@@ -4,16 +4,10 @@ import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { Wallet, Copy, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { sdk } from '@farcaster/frame-sdk';
-import { useState, useEffect } from 'react';
 
 export const WalletConnect = () => {
   const account = useAccount();
   const { disconnect, error } = useDisconnect();
-  const [nonce, setNonce] = useState<string>('');
-  useEffect(() => {
-    // Generate a random nonce for sign-in
-    setNonce(() => Math.random().toString(36).substring(2));
-  }, []);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -26,6 +20,7 @@ export const WalletConnect = () => {
   };
 
   const handleSignIn = async () => {
+    const nonce = Math.random().toString(36).substring(2);
     try {
       await sdk.actions.signIn({ nonce });
     } catch (e) {

@@ -58,7 +58,7 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
 - [x] Migrate UI components
   - [x] Migrate UI primitives (copied `components/ui` folder into `/minikit-app/app/components/ui`)
   - [x] Migrate core UI components
-    - Updated import paths and integrated core components: CoinButton, IdeaInput, SuccessCard, CoinDetails, WalletConnect, WelcomeScreen, CoinCreationFlow, Header, Logo; added OnChainKit frame logic (Save Frame button); removed duplicate WalletConnect inline fallback and replaced with instruction text.
+    - Updated import paths and integrated core components: CoinButton, IdeaInput, SuccessCard, CoinDetails, WalletConnect, WelcomeScreen, CoinCreationFlow, Header, Logo; added OnChainKit frame logic with plus/check icons, removed text labels; removed duplicate WalletConnect inline fallback and replaced with instruction text.
 - [x] Adjust and install dependencies
   - Installed: `lucide-react`, `sonner`, `clsx`, `tailwind-merge`, `class-variance-authority`, `@radix-ui/react-slot`, `@zoralabs/coins-sdk`, `mongodb` (used `--ignore-engines`).
 - [x] Migrate build and script configuration
