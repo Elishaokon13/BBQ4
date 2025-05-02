@@ -9,8 +9,6 @@ export const cbWalletConnector = coinbaseWallet({
   preference: {
     keysUrl: "https://keys-dev.coinbase.com/connect",
     options: "smartWalletOnly",
-  },
-  subAccounts: {
     enableAutoSubAccounts: true,
     defaultSpendLimits: {
       84532: [ // Base Sepolia Chain ID
