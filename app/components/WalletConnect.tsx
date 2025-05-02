@@ -1,4 +1,4 @@
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Button } from "./ui/button";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { Wallet, Copy, AlertCircle } from "lucide-react";
@@ -7,7 +7,8 @@ import { sdk } from '@farcaster/frame-sdk';
 
 export const WalletConnect = () => {
   const account = useAccount();
-  const { disconnect, error } = useDisconnect();
+  const { disconnect } = useDisconnect();
+  const { connectors, connect, error } = useConnect();
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -20,12 +21,29 @@ export const WalletConnect = () => {
   };
 
   const handleSignIn = async () => {
-    const nonce = Math.random().toString(36).substring(2);
     try {
+      if (!connectors.length) throw new Error('No wallet connectors available');
+      // Connect using the first available connector
+      await connect({ connector: connectors[0] });
+      // Then sign in via Farcaster frame
+      const nonce = Math.random().toString(36).substring(2);
       await sdk.actions.signIn({ nonce });
     } catch (e) {
       console.error('Sign in failed', e);
-      toast.error('Sign in failed');
+      toast.error(e instanceof Error ? e.message : 'Sign in failed');
+    }
+  };
+
+  // Wrap disconnect to also sign out of Farcaster (Warpcast)
+  const handleDisconnect = async () => {
+    try {
+      await disconnect();
+    } catch {}
+    try {
+      // Close the Farcaster frame to allow fresh sign-in later
+      await sdk.actions.close();
+    } catch (e) {
+      console.error('Error closing frame', e);
     }
   };
 
@@ -35,7 +53,7 @@ export const WalletConnect = () => {
         <Alert variant="destructive" className="mb-6 slide-in-from-top animate-in">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error.message}</AlertDescription>
+          <AlertDescription>{error?.message ?? 'Connection error'}</AlertDescription>
         </Alert>
       )}
 
@@ -57,7 +75,7 @@ export const WalletConnect = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={() => disconnect()}
+              onClick={handleDisconnect}
               className="text-xs text-accentPrimary border-accentPrimary hover:bg-accentPrimary hover:text-white"
             >
               Disconnect

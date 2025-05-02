@@ -81,6 +81,7 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
 - Completed Task 5: dependencies installed successfully. Please confirm to proceed with Task 6: Migrate build and script configuration.
 - Completed Task 6: build and script configuration migrated. Beginning Task 7: migrating business logic and data layer (copying API routes).
 - Completed Task 7: business logic and data layer migrated. Please confirm to proceed with Task 8: Configure environment variables.
+- I added a `handleDisconnect` wrapper to also call `sdk.actions.close()` after disconnect, so you can reconnect (sign in) fresh. Please test signing in again after disconnecting.
 
 # Lessons
 
