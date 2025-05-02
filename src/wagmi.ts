@@ -1,6 +1,6 @@
 import { parseEther } from "viem";
 import { http, cookieStorage, createConfig, createStorage } from "wagmi";
-import { baseSepolia } from "wagmi/chains";
+import { base } from "wagmi/chains";
 import { coinbaseWallet } from "wagmi/connectors";
 import { toHex } from "viem";
 
@@ -24,14 +24,14 @@ export const cbWalletConnector = coinbaseWallet({
 
 export function getConfig() {
   return createConfig({
-    chains: [baseSepolia],
+    chains: [base],
     connectors: [cbWalletConnector],
     storage: createStorage({
       storage: cookieStorage,
     }),
     ssr: true,
     transports: {
-      [baseSepolia.id]: http(),
+      [base.id]: http(),
     },
   });
 }

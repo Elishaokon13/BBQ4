@@ -26,7 +26,7 @@ export function SuccessCard({ txHash, onReset }: SuccessCardProps) {
           Congratulations! Your coin is now live
         </CardTitle>
         <CardDescription className="text-green-600">
-          Your joke has been immortalized on the blockchain
+          Your idea has been immortalized on the blockchain
         </CardDescription>
       </CardHeader>
       <CardContent>

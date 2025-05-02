@@ -91,7 +91,7 @@ User requested a review of their codebase to ensure code quality, maintainabilit
 - [ ] Review folder structure and architecture.
 - [ ] Examine tests and coverage.
 - [x] Fix fetch error in `src/app/api/generate-coin/route.ts` to resolve the SSL fetch failure.
-- [x] Update use case references across codebase from jokes/bangers to ideas.
+- [x] Update use case references across codebase from ideas/bangers to ideas.
 - [x] Reconfigure theme (Tailwind config).
 - [ ] Update global styles (globals.css).
 - [ ] Develop Header component.
@@ -116,7 +116,7 @@ User requested a review of their codebase to ensure code quality, maintainabilit
 - Completed review of configuration files; no assistance needed.
 - Completed fix for fetch error: swapped PROJECT_URL for dynamic request origin and normalized URL protocol in constants.
 - Please run the development server and test POST /api/generate-coin to verify the SSL fetch issue is resolved.
-- Completed update of use case references across codebase; please review UI text, API routes, and README to confirm all instances now refer to ideas instead of jokes or bangers.
+- Completed update of use case references across codebase; please review UI text, API routes, and README to confirm all instances now refer to ideas instead of ideas or bangers.
 - Completed Task 1: Reconfigured Tailwind theme with the new light palette and typography.
 - Completed persistence fix: coin details now persist across sign-in.
 - Please test: login flow and confirm that after signing in, your generated coin details and transaction info are retained and displayed correctly.

@@ -19,7 +19,7 @@ export async function POST(
       description: data.description,
       image: process.env.ENV === 'local' 
         ? "https://i.imgur.com/tdvjX6c.png"
-        : `${PROJECT_URL}/api/generateImage?joke=${data.description}`
+        : `${PROJECT_URL}/api/generateImage?idea=${data.description}`
     };
     
     return NextResponse.json({ success: true });
@@ -46,7 +46,7 @@ export async function GET(
       description: "A coin created from a banger",
       image: process.env.ENV === 'local' 
         ? "https://i.imgur.com/tdvjX6c.png"
-        : `${PROJECT_URL}/api/generateImage?joke=A coin created from a banger`
+        : `${PROJECT_URL}/api/generateImage?idea=A coin created from a banger`
     });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to retrieve metadata' }, { status: 500 });
