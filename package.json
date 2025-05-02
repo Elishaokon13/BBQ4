@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.10",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.7",
     "@wagmi/cli": "latest",
     "autoprefixer": "^10.4.21",
     "bufferutil": "^4.0.8",

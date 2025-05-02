@@ -5,7 +5,7 @@ import {
   useSimulateContract,
   useAccount,
 } from "wagmi";
-import { baseSepolia } from 'wagmi/chains';
+import { base } from 'wagmi/chains';
 import { createCoinCall } from "@zoralabs/coins-sdk";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -105,7 +105,7 @@ export function CoinButton({
     abi: contractParams?.abi,
     functionName: contractParams?.functionName,
     args: contractParams?.args,
-    chainId: baseSepolia.id as typeof baseSepolia.id,
+    chainId: base.id as typeof base.id,
     query: {
       enabled: !!contractParams,
     },
@@ -133,7 +133,7 @@ export function CoinButton({
       // Provide chainId explicitly to avoid connector.getChainId() error
       const hash = await writeContractAsync({
         ...contractParams,
-        chainId: baseSepolia.id,
+        chainId: base.id,
       });
       setStatus('success');
       onSuccess?.(hash);
