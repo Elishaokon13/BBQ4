@@ -1,6 +1,7 @@
 # Background and Motivation
 
 The user wants to integrate the functionality built in `/dapp` into the `/minikit-app` folder to create a miniapp using the existing dapp features.
+The judges suggested that each "coin a post" should have its own unique link/embed and utilize Gen-AI to stylize text, fonts, or background images so posts stand out and drive more engagement.
 
 # Key Challenges and Analysis
 
@@ -9,6 +10,10 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
 - Migrating configuration settings (environment variables, build scripts, bundlers).
 - Adapting file paths, imports, and project structure to the new context.
 - Ensuring both automated tests and manual QA pass after migration.
+- Designing an embed generation system to serve standalone coin post pages.
+- Integrating a Gen-AI pipeline to generate custom styling (fonts, colors, backgrounds) for each post.
+- Persisting and retrieving styling metadata per coin post.
+- Rendering embedded posts responsively in different contexts (timeline, external embeds).
 
 # High-level Task Breakdown
 
@@ -34,6 +39,12 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
     - Success: Manual test scenarios all pass without critical issues.
 11. Final review and documentation.
     - Success: README updated; architecture and migration documented.
+12. Design and implement unique post page and embed URLs.
+    - Success: Each coin post generates a standalone route and embed URL that renders only that post.
+13. Integrate Gen-AI styling for coin posts.
+    - Success: Use a Gen-AI model (e.g., OpenAI) to generate custom CSS styling (fonts, colors, backgrounds) and store the metadata.
+14. Update timeline UI to render embedded posts with generated styling and embed controls.
+    - Success: Timeline cards apply dynamic styling and provide a button to copy/embed the post.
 
 # Project Status Board
 
@@ -72,6 +83,11 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
 - [ ] Write and migrate tests
 - [x] QA and bug fixes
   - [x] Replace 'Warpcast' with 'Farcaster' in WalletConnect error messages
+  - [ ] Design post page schema and embed endpoint (Task 12)
+  - [ ] Implement API route for standalone coin post pages
+  - [ ] Integrate Gen-AI styling service (Task 13)
+  - [ ] Persist and retrieve styling metadata
+  - [ ] Update frontend to apply and embed custom styling (Task 14)
 - [ ] Final review and documentation
 
 # Executor's Feedback or Assistance Requests
@@ -83,6 +99,8 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
 - Completed Task 6: build and script configuration migrated. Beginning Task 7: migrating business logic and data layer (copying API routes).
 - Completed Task 7: business logic and data layer migrated. Please confirm to proceed with Task 8: Configure environment variables.
 - Completed Task 10.1: Updated WalletConnect to use Farcaster signIn and fixed error messages. Please test the sign-in flow.
+- Completed Task 10.2: Added `sdk.actions.ready()` before `signIn` and success toast in `WalletConnect`. Please test that sign-in now works and report any errors.
+- Completed core migration tasks. Ready to design the embed and styling pipeline per judge feedback.
 
 # Lessons
 

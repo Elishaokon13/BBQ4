@@ -21,8 +21,13 @@ export const WalletConnect = () => {
 
   const handleSignIn = async () => {
     try {
+      // ensure Farcaster frame SDK is ready
+      await sdk.actions.ready();
       const nonce = Math.random().toString(36).substring(2);
-      await sdk.actions.signIn({ nonce });
+      const result = await sdk.actions.signIn({ nonce });
+      // notify successful sign-in
+      toast.success('Signed in to Farcaster!');
+      
     } catch (e) {
       console.error('Farcaster sign in failed', e);
       toast.error('Farcaster sign in failed');
