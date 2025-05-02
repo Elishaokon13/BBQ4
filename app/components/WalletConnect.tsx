@@ -24,8 +24,8 @@ export const WalletConnect = () => {
       const nonce = Math.random().toString(36).substring(2);
       await sdk.actions.signIn({ nonce });
     } catch (e) {
-      console.error('Warpcast sign in failed', e);
-      toast.error('Warpcast sign in failed');
+      console.error('Farcaster sign in failed', e);
+      toast.error('Farcaster sign in failed');
     }
   };
 

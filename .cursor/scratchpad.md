@@ -70,7 +70,8 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
   - [x] Updated imports and handlers in route files (coin-metadata import path fixed, OpenAI and mongodb utilities configured)
 - [ ] Configure environment variables
 - [ ] Write and migrate tests
-- [ ] QA and bug fixes
+- [x] QA and bug fixes
+  - [x] Replace 'Warpcast' with 'Farcaster' in WalletConnect error messages
 - [ ] Final review and documentation
 
 # Executor's Feedback or Assistance Requests
@@ -81,7 +82,7 @@ The user wants to integrate the functionality built in `/dapp` into the `/miniki
 - Completed Task 5: dependencies installed successfully. Please confirm to proceed with Task 6: Migrate build and script configuration.
 - Completed Task 6: build and script configuration migrated. Beginning Task 7: migrating business logic and data layer (copying API routes).
 - Completed Task 7: business logic and data layer migrated. Please confirm to proceed with Task 8: Configure environment variables.
-- I added a `handleDisconnect` wrapper to also call `sdk.actions.close()` after disconnect, so you can reconnect (sign in) fresh. Please test signing in again after disconnecting.
+- Completed Task 10.1: Updated WalletConnect to use Farcaster signIn and fixed error messages. Please test the sign-in flow.
 
 # Lessons
 

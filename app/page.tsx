@@ -7,16 +7,16 @@ import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
 import { Button } from "./components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./components/ui/table";
 import { toast } from "sonner";
-import { WalletConnect } from "./components/WalletConnect";
 import { CoinDetails } from "./components/CoinDetails";
 import { IdeaInput } from "./components/IdeaInput";
-import { useAccount } from "wagmi";
 import { CreateCoinArgs } from "@/lib/types";
 import { CoinButton } from "./components/CoinButton";
 import { Logo } from "./components/Logo";
 import Image from "next/image";
 import { useMiniKit, useAddFrame } from "@coinbase/onchainkit/minikit";
 import { TransactionModal } from "./components/TransactionModal";
+import { useAccount } from 'wagmi';
+import { WalletConnect } from "./components/WalletConnect";
 
 interface ApiCoin {
   _id: string;
@@ -38,7 +38,6 @@ const emptyCoinArgs: CreateCoinArgs = {
 };
 
 export default function Page() {
-  const { status: accountStatus, address: accountAddress } = useAccount();
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const addFrame = useAddFrame();
   const [frameAdded, setFrameAdded] = useState(false);
@@ -47,14 +46,8 @@ export default function Page() {
   const [apiError, setApiError] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [myCoins, setMyCoins] = useState<ApiCoin[]>([]);
-
-  useEffect(() => {
-    if (accountStatus !== 'connected') {
-      setCoinParams(null);
-      setTxHash(null);
-      setMyCoins([]);
-    }
-  }, [accountStatus]);
+  // Ethereum wallet status for gating
+  const { status: accountStatus, address: accountAddress } = useAccount();
 
   useEffect(() => {
     if (!isFrameReady) setFrameReady();
