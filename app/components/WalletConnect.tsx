@@ -1,13 +1,19 @@
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useDisconnect } from "wagmi";
 import { Button } from "./ui/button";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { Wallet, Copy, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import { sdk } from '@farcaster/frame-sdk';
+import { useState, useEffect } from 'react';
 
 export const WalletConnect = () => {
   const account = useAccount();
-  const { connectors, connect, error } = useConnect();
-  const { disconnect } = useDisconnect();
+  const { disconnect, error } = useDisconnect();
+  const [nonce, setNonce] = useState<string>('');
+  useEffect(() => {
+    // Generate a random nonce for sign-in
+    setNonce(() => Math.random().toString(36).substring(2));
+  }, []);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -17,6 +23,15 @@ export const WalletConnect = () => {
   const formatAddress = (address: string | undefined) => {
     if (!address) return "";
     return `${address.substring(0, 4)}...${address.substring(address.length - 2)}`;
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await sdk.actions.signIn({ nonce });
+    } catch (e) {
+      console.error('Sign in failed', e);
+      toast.error('Sign in failed');
+    }
   };
 
   return (
@@ -54,20 +69,15 @@ export const WalletConnect = () => {
             </Button>
           </div>
         ) : (
-          <div className="flex gap-2">
-            {connectors.filter(connector => connector.name === 'Coinbase Wallet').map((connector) => (
-              <Button
-                key={connector.uid}
-                onClick={() => connect({ connector })}
-                variant="gradient"
-                size="sm"
-                className="flex items-center gap-1.5 bg-accentPrimary hover:bg-accentPrimary/90 text-white"
-              >
-                <Wallet className="h-4 w-4" />
-                Sign In
-              </Button>
-            ))}
-          </div>
+          <Button
+            onClick={handleSignIn}
+            variant="gradient"
+            size="sm"
+            className="flex items-center gap-1.5 bg-accentPrimary hover:bg-accentPrimary/90 text-white"
+          >
+            <Wallet className="h-4 w-4" />
+            Sign In
+          </Button>
         )}
       </div>
     </>
